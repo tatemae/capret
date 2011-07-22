@@ -1,0 +1,14 @@
+{ "name" :            "hummingbird"
+    , "description" :     "A node.js statistics server"
+    , "version" :    "0.0.1"
+    , "dependencies": {
+        "mongodb": "0.9.1"
+        ,"socket.io": "0.6.18"
+        ,"node-static": "0.5.6"
+        ,"geoip": "0.3.4-1"
+        ,"express": "2.3.11"
+    }
+    , "repository" :    { "type" :  "git"
+                        , "url" :   "http://github.com/mnutt/hummingbird.git" }
+    , "engines" :       { "node" : ">=0.3.0" }
+}
