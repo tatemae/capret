@@ -1,5 +1,5 @@
-{ "name" :            "hummingbird"
-    , "description" :     "A node.js statistics server"
+{ "name" :            "CaPRet"
+    , "description" :     "An OER Analytics server"
     , "version" :    "0.0.1"
     , "dependencies": {
         "mongodb": "0.9.1"
@@ -9,6 +9,6 @@
         ,"express": "2.3.11"
     }
     , "repository" :    { "type" :  "git"
-                        , "url" :   "http://github.com/mnutt/hummingbird.git" }
+                        , "url" :   "https://github.com/tatemae/CaPRet" }
     , "engines" :       { "node" : ">=0.3.0" }
 }
