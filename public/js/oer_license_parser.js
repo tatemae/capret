@@ -2,7 +2,6 @@
 
 var oer_license_parser = {
 	
-	triple_store: new Array(),
 	attr_names: ['license cc:license', 'about', 'src', 'resource', 'href', 'instanceof', 'typeof', 'rel', 'rev', 'property', 'content', 'datatype'],
 	license_found: false,
 	root_node: document,
@@ -15,7 +14,7 @@ var oer_license_parser = {
 										  'attribution_url' : "",
 										  'license_shorthand' : ""},
 	
-	get_license_as_html: function(){
+	get_license: function(){
 		var _self = this;
 		if(_self.parse_triples()){
 			var license_html = "";
@@ -56,11 +55,15 @@ var oer_license_parser = {
 	    attrib_string = "<div xmlns:dc=\"http://purl.org/dc/terms/\" xmlns:cc\"http://creativecommons.org/#ns\" about=\"" + url + "\">" + attrib_string + "</div>";
 	    non_html_attrib_string += license.split("\n").join("") + " / " + l_s + "\n";
 	    
-			_self.license_color();
-			
 	    var basic_attribution = "<p style=\"font-size:80%\">Basic Attribution</p><textarea rows=\"7\" id=\"attribtext\" cols=\"70\">" + attrib_string_light + "</textarea>";
 	    var rdf_attribution = "<p style=\"font-size:80%\">RDFa Attribution</p><textarea rows=\"7\" id=\"attribtextRDFA\" cols=\"70\">" + attrib_string + "</textarea>";
 	
+			return { 'attribution_string': attrib_string,
+							 'non_html_attribution_string': non_html_attrib_string,
+							 'basic_attribution': basic_attribution,
+							 'rdf_attribution': rdf_attribution,
+							 'license_color': _self.license_color()
+						 };
 		} else {
 			return '';
 		}		
@@ -71,7 +74,7 @@ var oer_license_parser = {
 		l_s = _self.current_license["license_shorthand"].split("  ").join(" ");
     l_s = l_s.split("  ");
     cc_l_s = l_s[1];
-		if(!cc_l_s){ return red; }
+		if(!cc_l_s){ return 'red'; }
 		switch (cc_l_s.toLowerCase()) {
       case "by":
       case "by-sa":
@@ -192,7 +195,7 @@ var oer_license_parser = {
         if (n.getAttribute("property") == "cc:attributionName" && n.getAttribute("rel") == "cc:attributionURL") {
           attribute = n.getAttribute(attr_name);
           triple_array = Array(asset, "cc:attributionName", n.innerHTML);
-          _self.add_triple(triple_array);
+          _self.extract_details(triple_array);
           attribute = "attributionURL";
         } else {
           attribute = n.getAttribute(attr_name);
@@ -216,13 +219,13 @@ var oer_license_parser = {
           if (value.indexOf("http://") == 0) {
             if (base != value.split("/")[2]) {
               triple_array = Array(asset, attribute, value);
-              _self.add_triple(triple_array)
+              _self.extract_details(triple_array)
               triple_array = Array();
             }
           }
           else {
             triple_array = Array(asset, attribute, value);
-            _self.add_triple(triple_array)
+            _self.extract_details(triple_array)
             triple_array = Array();
           }
         }
@@ -231,35 +234,43 @@ var oer_license_parser = {
 
 		return true;
 	},
-
-	add_triple: function(data_triple) {
+										
+	extract_details: function(data_triple){
 		var _self = this;
-	  if (_self.triple_store.length == 0) {
-	    _self.triple_store.push(data_triple);
-	    if (data_triple[1] == "license") {
-	      _self.license_found = true;
-	    }
-	  }
-	  else {
-	    var triple_not_found = false;
-	    for (var x = 0; x < _self.triple_store.length; x++) {
-	      if (_self.triple_store[x][0] != data_triple[0]) {
-	        _self.triple_store.push(data_triple);
-	        triple_not_found = false;
-	        break;
-	      }
-	      if (_self.triple_store[x][1] != data_triple[1]) {
-	        triple_not_found = true;
-	      } else {
-	        triple_not_found = false;
-	        break;
-	      }
-	    }
-	    if (triple_not_found) {
-	      _self.triple_store.push(data_triple);
-	      if (data_triple[1] == "license") {
-	        _self.license_found = true;        
-	      }
+		switch (data_triple[1]){
+		case "title":
+		  _self.current_license["title"] = data_triple[2];
+		  break;
+		case "license":
+			_self.license_found = true;
+		  _self.current_license["license"] = data_triple[2];		
+			_self.get_cc(data_triple[2], data_triple[0]);
+		  break;
+		case "attributionName":
+		  _self.current_license["attributionName"] = data_triple[2];
+		  break;
+		case "attributionURL":
+		  _self.current_license["attributionURL"] = data_triple[2];
+		  break;
+		case "author":
+		  _self.current_license["author"] = data_triple[2];
+		  break;
+		}
+	},
+	
+	get_cc: function(url, site){
+		var _self = this;
+	  _self.current_license["license_link"] = url;
+	  var req = new XMLHttpRequest();
+	  req.open("GET", url, true);
+	  req.onload = function(){
+	    if (req.readyState == 4) {
+	      var data = req.responseText;
+	      data = data.split("</title>");
+	      data = data[0].split("<title>");
+	      data = data[1].split("&mdash;");
+	      _self.current_license["license"] = data[1];
+	      _self.current_license["license_shorthand"] = data[2].split("\n").join("");
 	    }
 	  }
 	},
@@ -267,7 +278,6 @@ var oer_license_parser = {
 	do_triple_hacks: function(){
 		var _self = this;
 		switch (window.location.toString().split(".")[1]) {
-
 	  case "flickr":
 	    var loggedin = document.body.innerHTML.split('data-ywa-name="Account name">');
 	    logged_in_user = loggedin[1].split('</a>')[0];
@@ -276,13 +286,12 @@ var oer_license_parser = {
 	    photo_by_author = photo_by_user.split('<');
 	    if (logged_in_user == photo_by_author[0]) {
 	      triple_array = Array(window.location.toString(), "author", logged_in_user);
-	      add_triple(triple_array)
+	      extract_details(triple_array)
 	      triple_array = Array();
 	    }
 	    break;
 	  default:
 	    break;
-
 	  }
 	}
 	

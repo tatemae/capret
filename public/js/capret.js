@@ -18,6 +18,8 @@ jQuery(document).ready(function() {
     }
   });
 
-	oer_license_parser.get_license_as_html();
+	var license = oer_license_parser.get_license();
+	console.log(license)
+	jQuery('#test').append(license.attribution_string);
 
 });
