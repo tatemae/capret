@@ -8,7 +8,7 @@ jQuery(document).ready(function() {
     env.ref = document.referrer;
   }
   var track = '<img src="' + tracking_url + '&' + jQuery.param(env) + '"/>';
-  var license = '<br />';
+  var license = '<p>An example License</p>';
   jQuery('body').clipboard(
   {
     prepend: track,
