@@ -8,18 +8,9 @@ jQuery(document).ready(function() {
     env.ref = document.referrer;
   }
   var track = '<img src="' + tracking_url + '&' + jQuery.param(env) + '"/>';
-  var license = '<p>An example License</p>';
-  jQuery('body').clipboard(
-  {
-    prepend: track,
-    append: license,
-    oncopy: function(e) {
-      console.log(e);
-    }
-  });
-
 	var license = oer_license_parser.get_license();
-	console.log(license)
-	jQuery('#test').append(license.attribution_string);
-
+	jQuery('body').clipboard({
+    append: license.license_html + track,
+    oncopy: function(e) { console.log(e); }
+  });	
 });

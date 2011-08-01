@@ -4,6 +4,7 @@ var oer_license_parser = {
 	
 	attr_names: ['license cc:license', 'about', 'src', 'resource', 'href', 'instanceof', 'typeof', 'rel', 'rev', 'property', 'content', 'datatype'],
 	license_found: false,
+	license_loaded: false,
 	root_node: document,
 	current_license: {	'title' : document.title,
 										  'url' : document.location.href,
@@ -11,8 +12,7 @@ var oer_license_parser = {
 										  'license' : "",
 										  'license_link' : "",
 										  'type' : "",
-										  'attribution_url' : "",
-										  'license_shorthand' : ""},
+										  'attribution_url' : ""},
 	
 	get_license: function(){
 		var _self = this;
@@ -22,7 +22,6 @@ var oer_license_parser = {
 			var url = _self.current_license["url"];
 			var license = _self.current_license["license"];
 			var license_link = _self.current_license["license_link"];
-			var license_shorthand = _self.current_license["license_shorthand"];
 			var author = _self.current_license["author"];
 			
 	    if(author==""){ author = _self.current_license["attributionName"]; }
@@ -32,7 +31,7 @@ var oer_license_parser = {
 	    license_html = "<p style=\"font-weight:bold\">" + title + "</p>";
 	    attrib_string = '<span property="dct:title">' + title + '</span>';
 	    non_html_attrib_string = title + " taken from " + url + "\n";
-	    license_html += "<p style=\"font-size:80%\"> Source : " + url + "</p>";
+	    license_html += "<p style=\"font-size:80%\"> Source : <a target=\"blank\" href=\"" + url + "\">" + url + "</a></p>";
 	    license_html += "<p style=\"font-size:80%\"> License: <a target=\"_blank\" href=\"" + license_link + "\">" + license + "</a></p>";
 	    attrib_string_light = title + " : taken from - " + url;
 	    if(author!=""){
@@ -47,13 +46,8 @@ var oer_license_parser = {
 	    }
 	    license_html += "<form><input type=\"button\" value=\"More Information\" onclick=\"javascript:toggle(document.getElementById('extrainfodiv'));\" /></form>";
 	    attrib_string_light += "\n" + license_link;
-	    l_s = license_shorthand.split("  ").join(" ");
-	    l_s = l_s.split("  ")
-	    cc_l_s = l_s[1];
-	    l_s = l_s.join(" ");
-	    attrib_string +='<a rel="license" target=\"_blank\" href="' + license_link + '">' + license + " / " + l_s + '</a>';
+	    attrib_string +='<a rel="license" target=\"_blank\" href="' + license_link + '">' + license + '</a>';
 	    attrib_string = "<div xmlns:dc=\"http://purl.org/dc/terms/\" xmlns:cc\"http://creativecommons.org/#ns\" about=\"" + url + "\">" + attrib_string + "</div>";
-	    non_html_attrib_string += license.split("\n").join("") + " / " + l_s + "\n";
 	    
 	    var basic_attribution = "<p style=\"font-size:80%\">Basic Attribution</p><textarea rows=\"7\" id=\"attribtext\" cols=\"70\">" + attrib_string_light + "</textarea>";
 	    var rdf_attribution = "<p style=\"font-size:80%\">RDFa Attribution</p><textarea rows=\"7\" id=\"attribtextRDFA\" cols=\"70\">" + attrib_string + "</textarea>";
@@ -62,46 +56,13 @@ var oer_license_parser = {
 							 'non_html_attribution_string': non_html_attrib_string,
 							 'basic_attribution': basic_attribution,
 							 'rdf_attribution': rdf_attribution,
-							 'license_color': _self.license_color()
+							 'license_html': license_html
 						 };
 		} else {
 			return '';
 		}		
 	},
-	
-	license_color: function(){
-		var _self = this;
-		l_s = _self.current_license["license_shorthand"].split("  ").join(" ");
-    l_s = l_s.split("  ");
-    cc_l_s = l_s[1];
-		if(!cc_l_s){ return 'red'; }
-		switch (cc_l_s.toLowerCase()) {
-      case "by":
-      case "by-sa":
-      case "mark":
-      case "zero":
-      case "publicdomain":
-      license_color = "green";
-      break;
-
-      case "by-nc":
-      case "by-nd":
-      case "by-nc-nd":
-      case "by-nc-sa":
-      case "sampling+":
-      case "nc-sampling+":
-      license_color = "yellow";
-      break;
-
-      case "sampling":
-      case "devnations":
-      license_color = "red";
-      break;
-    }
-
-    return license_color;
-	},
-	
+		
 	parse_triples: function(){
 		var _self = this;
 		var n = _self.root_node;
@@ -239,14 +200,15 @@ var oer_license_parser = {
 		var _self = this;
 		switch (data_triple[1]){
 		case "title":
-		  _self.current_license["title"] = data_triple[2];
+		case "dct:title":
+		  _self.current_license["title"] = data_triple[2];		
 		  break;
 		case "license":
 			_self.license_found = true;
-		  _self.current_license["license"] = data_triple[2];		
-			_self.get_cc(data_triple[2], data_triple[0]);
+		  _self.current_license["license"] = data_triple[2];
 		  break;
 		case "attributionName":
+		case "cc:attributionName":
 		  _self.current_license["attributionName"] = data_triple[2];
 		  break;
 		case "attributionURL":
@@ -256,23 +218,6 @@ var oer_license_parser = {
 		  _self.current_license["author"] = data_triple[2];
 		  break;
 		}
-	},
-	
-	get_cc: function(url, site){
-		var _self = this;
-	  _self.current_license["license_link"] = url;
-	  var req = new XMLHttpRequest();
-	  req.open("GET", url, true);
-	  req.onload = function(){
-	    if (req.readyState == 4) {
-	      var data = req.responseText;
-	      data = data.split("</title>");
-	      data = data[0].split("<title>");
-	      data = data[1].split("&mdash;");
-	      _self.current_license["license"] = data[1];
-	      _self.current_license["license_shorthand"] = data[2].split("\n").join("");
-	    }
-	  }
 	},
 	
 	do_triple_hacks: function(){
