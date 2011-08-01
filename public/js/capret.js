@@ -1,6 +1,8 @@
 (function( $ ){
 	jQuery = $ = $.noConflict(true);
+	console.log('Scripts loaded');
 	jQuery(function() {
+		console.log('in the func');
 	  var tracking_url = 'http://stats.oerglue.com:8000/tracking.gif';
 	  var env = {};
 	  env.u = document.location.href;
