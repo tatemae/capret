@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+jQuery(function() {
   var tracking_url = 'http://stats.oerglue.com:8000/tracking.gif';
   var env = {};
   env.u = document.location.href;
