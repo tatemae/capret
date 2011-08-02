@@ -1,4 +1,4 @@
-(function( $ ){
+//(function( $ ){
 	jQuery = $ = $.noConflict(true);
 	console.log('Scripts loaded');
 	jQuery(function() {
@@ -18,4 +18,4 @@
 	    oncopy: function(e) { console.log(e); }
 	  });	
 	});
-});
+//});
