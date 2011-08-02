@@ -1,8 +1,6 @@
-//(function( $ ){
-	jQuery = $ = $.noConflict(true);
-	console.log('Scripts loaded');
+(function( jQuery ){
+	jQuery = jQuery.noConflict(true);
 	jQuery(function() {
-		console.log('in the func');
 	  var tracking_url = 'http://stats.oerglue.com:8000/tracking.gif';
 	  var env = {};
 	  env.u = document.location.href;
@@ -18,4 +16,4 @@
 	    oncopy: function(e) { console.log(e); }
 	  });	
 	});
-//});
+})(jQuery);
