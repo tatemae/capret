@@ -1,7 +1,7 @@
 (function( jQuery ){
 	jQuery = jQuery.noConflict(true);
 	jQuery(function() {
-	  var tracking_url = 'http://stats.oerglue.com:8000/tracking.gif';
+	  var tracking_url = 'http://capret.mitoeit.org:8000/tracking.gif';
 	  var env = {};
 	  env.u = document.location.href;
 	  env.bw = window.innerWidth;
@@ -13,7 +13,11 @@
 		var license = oer_license_parser.get_license();
 		jQuery('body').clipboard({
 	    append: license.license_html + track,
-	    oncopy: function(e) { console.log(e); }
+	    oncopy: function(e) {
+				env.copy = true;
+				jQuery.get(tracking_url+ '&' + jQuery.param(env));
+				console.log(e); 
+			}
 	  });	
 	});
 })(jQuery);
