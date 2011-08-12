@@ -12,7 +12,7 @@
 	  var track = '<img src="' + tracking_url + '&' + jQuery.param(env) + '"/>';
 		var license = oer_license_parser.get_license();
 		jQuery('body').clipboard({
-	    append: license.license_html + track,
+	    append: track + license.license_html,
 	    oncopy: function(e) {
 				env.copy = true;
 				jQuery.get(tracking_url+ '&' + jQuery.param(env));
