@@ -4,6 +4,7 @@ CaPRet
 OER reuse tracking and analytics storage
 
 CaPRet is a derivative of Hummingbird (https://github.com/mnutt/Hummingbird)
+License parsing script derived from openattribute-chrome (https://github.com/patlockley/openattribute-chrome)
 
 Description
 ---------------
