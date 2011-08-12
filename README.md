@@ -41,7 +41,7 @@ Installation
 Running CaPReT
 --------------
 
-To start the analytics server, run the following:
+To start the server, run the following:
 
     mongod &   (or start mongo some other way)
     node server.js
@@ -64,7 +64,7 @@ to point to the server where you're hosting the dashboard.
 Architecture Overview
 ---------------------
 
-CaPReT is organized into two parts: a node.js-based tracking server that records user
+CaPReT is organized into three parts: a node.js-based tracking server that records user
 activity via a tracking pixel, and a collection of javascript-based widgets that display that
 activity.  The server records all activity in MongoDB and broadcasts it to the clients using
 WebSockets if possible, and falling back to Flash sockets if necessary.
@@ -73,6 +73,8 @@ The capret.WebSocket object receives websocket events from the server in the for
 objects.  Individual widgets subscribe to a property in the JSON tree and register handler
 functions to be called whenever that property is present.
 
+The capret scripts can be copied and pasted into any website. The scripts then watch for the copy
+event in the web page and add the appropriate attribution information.
 
 Logging Customization
 ---------------------
