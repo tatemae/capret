@@ -44,7 +44,6 @@ var oer_license_parser = {
 	      }
 	      attrib_string_light += "\nAuthor: " + author + " ";
 	    }
-	    license_html += "<form><input type=\"button\" value=\"More Information\" onclick=\"javascript:toggle(document.getElementById('extrainfodiv'));\" /></form>";
 	    attrib_string_light += "\n" + license_link;
 	    attrib_string +='<a rel="license" target=\"_blank\" href="' + license_link + '">' + license + '</a>';
 	    attrib_string = "<div xmlns:dc=\"http://purl.org/dc/terms/\" xmlns:cc\"http://creativecommons.org/#ns\" about=\"" + url + "\">" + attrib_string + "</div>";
