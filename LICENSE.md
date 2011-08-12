@@ -1,6 +1,7 @@
 The MIT License
 ===============
 
+Copyright (c) 2011 Massachusetts Institute of Technology and others.
 Copyright (c) 2010 Michael Nutt <michael@nuttnet.net> and others.
 Copyright (c) 2011 MIT.
 
