@@ -3,7 +3,7 @@ CaPRet
 
 OER reuse tracking and analytics storage
 
-CaPRet is a derivative of CaPRet (https://github.com/mnutt/CaPRet)
+CaPRet is a derivative of Hummingbird (https://github.com/mnutt/Hummingbird)
 
 Description
 ---------------
