@@ -1,4 +1,4 @@
-{ "name" :            "CaPRet"
+{ "name" :            "capret"
     , "description" :     "An OER Analytics server"
     , "version" :    "0.0.1"
     , "dependencies": {
@@ -9,6 +9,6 @@
         ,"express": "2.3.11"
     }
     , "repository" :    { "type" :  "git"
-                        , "url" :   "https://github.com/tatemae/CaPRet" }
+                        , "url" :   "https://github.com/tatemae/capret" }
     , "engines" :       { "node" : ">=0.3.0" }
 }

@@ -13,7 +13,7 @@
   "enable_dashboard" : true,
 
   "capistrano" : {
-    "repository" :       "git@github.com:tatemae/CaPRet.git",
+    "repository" :       "git@github.com:tatemae/capret.git",
     "capret_host" : "capret.your-host.com"
   }
 }

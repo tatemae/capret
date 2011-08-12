@@ -13,7 +13,7 @@ module.exports = config = {
   "enable_dashboard" : true,
 
   "capistrano" : {
-    "repository" :       "git@github.com:tatemae/CaPRet.git",
+    "repository" :       "git@github.com:tatemae/capret.git",
     "hummingbird_host" : "stats.oerglue.com"
   }
 }
