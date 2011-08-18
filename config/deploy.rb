@@ -1,7 +1,7 @@
-set :application, "wgu"
+set :application, "capret"
 
 set :scm, :git
-set :repository,  "git@github.com:tatemae/hummingbird.git"
+set :repository,  "git@github.com:tatemae/capret.git"
 
 set :deploy_to, "/home/ec2-user/#{application}"
 set :git_enable_submodules, 1
@@ -13,9 +13,11 @@ ssh_options[:forward_agent] = true
 
 set :user, "ec2-user"
 
-role :web, "stats.oerglue.com"                   # Your HTTP instance, Apache/etc
-role :app, "stats.oerglue.com"                   # This may be the same as your `Web` instance
-role :db,  "stats.oerglue.com", :primary => true # This is where Rails migrations will run
+server = "ec2-184-73-107-100.compute-1.amazonaws.com"
+
+role :web, server                   # Your HTTP instance, Apache/etc
+role :app, server                   # This may be the same as your `Web` instance
+role :db,  server, :primary => true # This is where Rails migrations will run
 
 set :keep_releases, 1 
 
