@@ -2,7 +2,7 @@ module.exports = config = {
   "name" : "Analytics",
 
   "tracking_port" : 8000,
-  "dashboard_port" : 8080,
+  "dashboard_port" : 80,
 
   "mongo_host" : "localhost",
   "mongo_port" : 27017,
