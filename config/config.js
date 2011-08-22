@@ -1,5 +1,5 @@
 module.exports = config = {
-  "name" : "Analytics",
+  "name" : "Capret",
 
   "tracking_port" : 8000,
   "dashboard_port" : 80,
@@ -14,6 +14,6 @@ module.exports = config = {
 
   "capistrano" : {
     "repository" :       "git@github.com:tatemae/capret.git",
-    "hummingbird_host" : "stats.oerglue.com"
+    "hummingbird_host" : "capret.mitoeit.org"
   }
 }

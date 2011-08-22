@@ -14,5 +14,5 @@ HummingbirdTracker.track = function(env) {
     env.ref = document.referrer;
   }
 
-  $('body').append('<img src="http://stats.oerglue.com:8000/tracking.gif?' + jQuery.param(env) + '"/>');
+  $('body').append('<img src="http://capret.mitoeit.org:8000/tracking.gif?' + jQuery.param(env) + '"/>');
 };
