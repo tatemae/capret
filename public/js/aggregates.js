@@ -29,7 +29,7 @@ $(function () {
 		     bars: { show: true, barWidth: 1, fill: 0.9 },
 		     xaxis: { mode:"time", tickLength: 2 , min:startTime , max:endTime, timezone: "browser"},
 	     };
-	 $.plot($(divElem),[ { 'label':'Impressions Last Day', 'data': d1 } ],  options);
+	 $.plot($(divElem),[ { 'label':'Visits', 'data': d1 } ],  options);
 
 	 $(divElem).append( '<div align="right"><img src="images/csv.png" width=16 height=16/>'
 			 +'<img src="images/js.png" width=16 height=16/></div>');
