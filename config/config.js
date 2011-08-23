@@ -14,6 +14,6 @@ module.exports = config = {
 
   "capistrano" : {
     "repository" :       "git@github.com:tatemae/capret.git",
-    "hummingbird_host" : "capret.mitoeit.org"
+    "hummingbird_host" : "ec2-184-73-107-100.compute-1.amazonaws.com"
   }
 }

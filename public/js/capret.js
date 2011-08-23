@@ -1,7 +1,7 @@
 (function( jQuery ){
 	jQuery = jQuery.noConflict(true);
 	jQuery(function() {
-	  var tracking_url = 'http://capret.mitoeit.org:8000/tracking.gif';
+	  var tracking_url = 'http://ec2-184-73-107-100.compute-1.amazonaws.com:8000/tracking.gif';
 	  var env = {};
 	  env.u = document.location.href;
 	  env.bw = window.innerWidth;
