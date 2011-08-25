@@ -13,7 +13,7 @@ ssh_options[:forward_agent] = true
 
 set :user, "ec2-user"
 
-server = "ec2-184-73-107-100.compute-1.amazonaws.com"
+server = "capret.mitoeit.org"
 
 role :web, server                   # Your HTTP instance, Apache/etc
 role :app, server                   # This may be the same as your `Web` instance
