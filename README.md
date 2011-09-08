@@ -44,7 +44,8 @@ Running CaPReT
 To start the server, run the following:
 
     mongod &   (or start mongo some other way)
-    node server.js
+    node server.js (If you get and error "throw e; // process.nextTick error, or 'error' event on first tick   
+      Error: EACCES, Permission denied" then you might be trying to bind to a port below 1024 in which case you need to run using sudo.)
 
 By default a dashboard will be run on port 8080.  You can disable it for production use in
 config/app.json.  The dashboard is just html served out of public/; you can serve it using
