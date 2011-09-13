@@ -24,7 +24,8 @@
 	}
 	function final_params(copy_text, env){
 		env.l = copy_text.length;
-		env.txt = truncate(copy_text, 100);		
+		env.txt = truncate(copy_text, 100);	
+		env.lmod = document.lastModified;	
 		return jQuery.param(env);
 	}
 	function image_tag(copy_text, env){		
