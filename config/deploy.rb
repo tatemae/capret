@@ -47,6 +47,7 @@ end
 
 set :mongodbname_prod, 'your_production_mongodb_database_name'
 set :mongodbname_dev, 'your_local_mongodb_database_name'
+set :mongodbname, 'localhost'
 
 namespace :sync do
 
