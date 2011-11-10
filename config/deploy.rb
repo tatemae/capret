@@ -45,5 +45,20 @@ namespace :update do
   end
 end
 
+set :mongodbname_prod, 'your_production_mongodb_database_name'
+set :mongodbname_dev, 'your_local_mongodb_database_name'
+
+namespace :sync do
+
+  desc 'Synchronize local MongoDB with production.'
+  task :mongodb, :hosts => "#{application}" do
+    run "cd"
+    run "mongodump --host localhost -d #{mongodbname}"
+    system "scp -Cr #{user}@#{application}:~/dump/#{mongodbname_prod}/ db/backups/"
+    system "mongorestore -h localhost --drop -d #{mongodbname_dev} db/backups/mongodb/"
+  end
+
+end
+
 after 'deploy:update_code', 'update:symlink_shared'
 after 'deploy:symlink', 'deploy:npm_install'
