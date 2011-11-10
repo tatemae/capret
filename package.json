@@ -1,6 +1,6 @@
 { "name" :            "capret"
     , "description" :     "An OER Analytics server"
-    , "version" :    "0.0.1"
+    , "version" :    "0.0.2"
     , "dependencies": {
         "mongodb": "0.9.1"
         ,"socket.io": "0.6.18"
