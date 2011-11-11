@@ -29,7 +29,7 @@
 		return jQuery.param(env);
 	}
 	function image_tag(copy_text, env){		
-		return '<img src="http://capret.mitoeit.org:8000/tracking.gif&' + final_params(copy_text, env) + '"/>';
+		return '<img src="http://capret.mitoeit.org:8000/tracking.gif?' + final_params(copy_text, env) + '"/>';
 	}
 	jQuery(function() {
 	  var env = {};
