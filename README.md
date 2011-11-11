@@ -105,6 +105,10 @@ the data provided by the node.js server.  For the minimum amount required to cre
 public/js/widgets/logger.js.  A widget is an object whose prototype extends capret.Base and
 implements onMessage.
 
+Debugging
+---------
+Use node-inspector. More instructions here:
+https://github.com/dannycoates/node-inspector
 
 Specs
 --------

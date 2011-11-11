@@ -2,7 +2,8 @@ module.exports = config = {
   "name" : "Capret",
 
   "tracking_port" : 8000,
-  "dashboard_port" : 8880,
+  "dashboard_port" : 80,
+	//"dashboard_port" : 8880,
 
   "mongo_host" : "localhost",
   "mongo_port" : 27017,
