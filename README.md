@@ -135,3 +135,7 @@ License
 -------
 
 CaPReT (capret) is licensed under the MIT License. (See LICENSE)
+
+Development
+-----------
+CaPRéT was developed by <a href="http://www.tatemae.com/">Tatemae</a> and the <a href="http://oeit.mit.edu/">MIT Office of Educational Innovation and Technology</a> with support from <a href="http://jisc.cetis.ac.uk/">JISC CETIS</a>.
