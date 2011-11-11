@@ -4,7 +4,7 @@ var siteconfig = {
 		"report":"//capret.mitoeit.org:8888"
 };
 
-// var siteconfig = {
+// siteconfig = {
 // 		"track": "//localhost:8000",
 // 		"ws":	 "//localhost:8000",
 // 		"report":"//localhost:8888"

@@ -18,8 +18,9 @@ Hummingbird.Tabular.init = function() {
 			row.find('td.ua').text(item.ua);			
 			row.find('td.referrer').text(item.ref);
 			row.find('td.location').text(item.u);
-			row.find('td.time').text(item.time);			
-			row.find('td.stuff').text(JSON.stringify(item));			
+			row.find('td.text-copied').text(item.txt);			
+			row.find('td.text-length').text(item.l);
+			row.find('td.text-modified').text(item.lmod);
 	    row.appendTo('#tabular-data');
 	  });
 	});
