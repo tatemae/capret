@@ -110,6 +110,15 @@ Debugging
 Use node-inspector. More instructions here:
 https://github.com/dannycoates/node-inspector
 
+Start Capret:
+  node --debug server.js
+  
+Then start the inspector:
+  node-inspector &  
+
+Last visit:
+  http://127.0.0.1:8080/debug?port=5858 
+
 Specs
 --------
 
