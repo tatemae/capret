@@ -21,6 +21,7 @@ Hummingbird.Tabular.init = function() {
 			row.find('td.text-copied').text(item.txt);			
 			row.find('td.text-length').text(item.l);
 			row.find('td.text-modified').text(item.lmod);
+			row.find('td.text-copied-on').text(item.ct);			
 	    row.appendTo('#tabular-data');
 	  });
 	});

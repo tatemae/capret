@@ -24,7 +24,7 @@
 	}
 	function final_params(copy_text, env){
 		env.l = copy_text.length;
-		env.txt = truncate(copy_text, 100);	
+		env.txt = escape(truncate(copy_text, 100));
 		env.lmod = document.lastModified;	
 		return jQuery.param(env);
 	}
@@ -36,20 +36,14 @@
 	  env.u = document.location.href;
 	  env.bw = window.innerWidth;
 	  env.bh = window.innerHeight;
-	  if (document.referrer && document.referrer != "") {
-	    env.ref = document.referrer;
-	  }
-		env.t = new Date().getTime();
+		env.ct = new Date().getTime();
 		env.id = make_id();
 		var license = oer_license_parser.get_license();
 		jQuery('body').clipboard({
 	    append: function(e){
+				// A side effect of adding the image tag to the clipboard is that the browser will make a request out to the stats server.
+				// That notifies us that text was copied
 				return image_tag(e, env) + license.license_html;
-			},
-	    oncopy: function(e) {
-				env.copy = true;
-				jQuery('body').append(image_tag(e, env));
-				console.log(e); 
 			}
 	  });				
 	});
