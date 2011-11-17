@@ -8,6 +8,7 @@ a{color:#fff;}
 #home h1{margin:0px;font-size:40px;}
 #home textarea{width:90%;height:200px;}
 #footer{color:#fff;font-size:10px;}
+#key{color:#fff;font-size:12px;}
 div.hummingbird_graph div.graph{float:left;padding:14px 0 20px 0;color:#F00;font-weight:bold;position:relative;overflow:hidden;width:760px;display:block;}
 div.hummingbird_graph div.axis_left,
 div.hummingbird_graph div.axis_right{float:left;line-height:1em;color:#FFF;opacity:0.3;font-weight:bold;font-size:0.8em;width:30px;position:relative;top:-5px;}
