@@ -108,6 +108,7 @@ var oer_license_parser = {
 	
 	is_parseable_node: function(n){
 		if(n.nodeName != "LINK" && 
+			 typeof n.hasAttributes != "undefined" &&
 			 n.hasAttributes() &&
 			 n.attributes.length != 1){
 			return true;
