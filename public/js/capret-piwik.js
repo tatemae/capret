@@ -7,8 +7,9 @@
 (function( jQuery ){
 	jQuery = jQuery.noConflict(true);
 	var
-	  piwik_url = get_data('url', 'http://track.olnet.org/piwik/')
+	  piwik_url = get_data('url', 'http://track.olnet.org/piwik')
 	, idsite = get_data('idsite', 1)
+	, source_ref = get_data('src-ref', true)
 	, record = get_data('rec', 1)
 	, debug = get_data('debug', false)
 	// Aliases
@@ -40,11 +41,12 @@
 		env.idsite = idsite;
 		env.rec = record;
 		env.rand = M.floor(M.random()*100);
-		env.action_name = Enc(doc.title) +'/'+ Enc(' '+tx); //+'"';
+		env.action_name = Enc(doc.title) +'/'+ Enc(' '+tx) +'/'+Enc(' CaPReT'); //+'"';
 
 		//Custom variable JSON (last, in case it is stripped on paste?)
 		env._cvar = {
-			'1': ['via', 'CaPReT'],
+			//'1': ['via', 'CaPReT'],
+			'1': ['source', doc.location.href],
 			'2': ['length', copy_text.length], //'len'
 			'3': ['text', tx], //'txt'
 			'4': ['modified', doc.lastModified], //'lmod'
@@ -55,7 +57,7 @@
 		return jQuery.param(env);
 	}
 	function image_tag_piwik(copy_text, env){
-		img = '<img src="'+ piwik_url +'piwik.php?' + final_params_pi(copy_text, env) + '"/>';
+		img = '<img src="'+ piwik_url +'/piwik.php?' + final_params_pi(copy_text, env) + '"/>';
 		if (debug) {
 			console.log(img);
 			console.log(env);
@@ -64,8 +66,10 @@
 		return img;
 	}
 	jQuery(function() {
-		var env = {};
-		env.url = Enc(doc.location.href);
+		var env = {}
+		, urlkey = source_ref ? 'urlref' : 'url'
+		;
+		env[urlkey] = Enc(doc.location.href); //Use 'ContentReuse' Piwik plugin.
 		env.res = Enc(win.innerWidth +'x'+ win.innerHeight);
 		//env.id = make_id();
 		var license = license_parser.get_license();
